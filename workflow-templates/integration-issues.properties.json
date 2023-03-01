@@ -1,0 +1,5 @@
+{
+  "name": "ASKEM Integration Workflow",
+  "description": "Automatically share issues tagged with `integration` to https://github.com/orgs/DARPA-ASKEM/projects/5",
+  "iconName": "octicon issue-reopened"
+}
