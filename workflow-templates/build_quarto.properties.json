@@ -1,0 +1,7 @@
+{
+  "name": "Build Quarto Website",
+  "description": "Builds and deploys a Quarto website to Netlify.",
+  "iconName": "octicon globe",
+  "categories": ["RMarkdown"],
+  "filePatterns": ["^_quarto\\.yml$"]
+}
