@@ -1,0 +1,11 @@
+{
+  "name": "AlgebraicJulia Julia CI/CD",
+  "description": "Add testing, code coverage, documentation, and release continuous integration and deployment for Julia projects",
+  "iconName": "octicon workflow",
+  "categories": [
+    "Julia"
+  ],
+  "filePatterns": [
+    "^Project.toml$"
+  ]
+}
