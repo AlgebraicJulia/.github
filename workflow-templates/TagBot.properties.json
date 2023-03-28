@@ -1,0 +1,11 @@
+{
+  "name": "Julia TagBot",
+  "description": "Add bot to automatically tag new GitHub releases after releasing to Julia registries",
+  "iconName": "octicon tag",
+  "categories": [
+    "Julia"
+  ],
+  "filePatterns": [
+    "^Project.toml$"
+  ]
+}
