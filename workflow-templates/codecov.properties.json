@@ -1,4 +1,0 @@
-{
-  "name": "Code Coverage (codecov)",
-  "description": "Add code coverage workflow (Requires CODECOV_TOKEN)",
-}
