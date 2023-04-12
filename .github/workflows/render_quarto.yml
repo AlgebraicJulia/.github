@@ -27,6 +27,7 @@ jobs:
         run: |
           sudo apt-get install graphviz pdf2svg
           quarto install tinytex --update-path
+          tlmgr update --self
           tlmgr install tikz-cd luatex85
       - name: Install Julia
         uses: julia-actions/setup-julia@v1
