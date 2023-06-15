@@ -67,11 +67,12 @@ jobs:
         uses: julia-actions/setup-julia@v1
         with:
           version: "1"
-      - name: "Install system dependencies"
+      - name: "Install Graphviz"
+        uses: ts-graphviz/setup-graphviz@v1
+      - name: "Install LaTeX"
         run: |
           sudo apt-get update
-          sudo apt-get install graphviz pdf2svg
-          sudo apt-get install texlive-latex-base texlive-latex-extra texlive-binaries texlive-pictures texlive-luatex
+          sudo apt-get install pdf2svg texlive-latex-base texlive-latex-extra texlive-binaries texlive-pictures texlive-luatex
       - name: "Install Julia dependencies"
         run: julia --project=docs -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate();'
       - name: "Build and deploy docs"
