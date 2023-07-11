@@ -5,6 +5,9 @@ on:
       DOCUMENTER_KEY:
         description: "Privileged key for CompatHelper"
         required: false
+      RELEASE_TOKEN:
+        description: "Token to use for creating CompatHelper PRs"
+        required: false
 jobs:
   CompatHelper:
     runs-on: ubuntu-latest
@@ -39,5 +42,5 @@ jobs:
           CompatHelper.main()
         shell: julia --color=yes {0}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           COMPATHELPER_PRIV: ${{ secrets.DOCUMENTER_KEY }}
