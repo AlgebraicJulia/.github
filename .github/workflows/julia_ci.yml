@@ -6,6 +6,11 @@ on:
         description: "Token for the repository from codecov.io for uploading the code coverage report"
         required: false
     inputs:
+      versions:
+        description: "What versions of julia to test, a JSON array of strings"
+        default: "['1']"
+        required: false
+        type: string
       codecov:
         description: "Whether or not to include codecov"
         default: true
@@ -23,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: # use matrix notation for linux for easily testing more versions/architectures
-        version: ["1"]
+        version: ${{ fromJSON(inputs.versions) }}
         os: [ubuntu-latest]
         arch: ["x64"]
         include:
