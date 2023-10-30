@@ -2,12 +2,26 @@ name: Julia CompatHelper
 on:
   workflow_call:
     secrets:
-      DOCUMENTER_KEY:
-        description: "Privileged key for CompatHelper"
-        required: false
       RELEASE_TOKEN:
         description: "Token to use for creating CompatHelper PRs"
         required: false
+    inputs:
+      git_username:
+        description: "Username of github user"
+        default: "algebraicjuliabot"
+        required: false
+        type: string
+      git_name:
+        description: "Name of github user"
+        default: "AlgebraicJulia Bot"
+        required: false
+        type: string
+      git_email:
+        description: "Email of github user"
+        # TODO: Replace email with an official one like bot@algebraicjulia.org, but needs to be added to user account first
+        default: "mhalter3378@gmail.com"
+        required: false
+        type: string
 jobs:
   CompatHelper:
     runs-on: ubuntu-latest
@@ -39,8 +53,13 @@ jobs:
       - name: "Run CompatHelper"
         run: |
           import CompatHelper
-          CompatHelper.main()
+          CompatHelper.main(
+            ENV,
+            CompatHelper.GitHubActions(username=ENV["GIT_COMMITTER_USERNAME"], email=ENV["GIT_COMMITTER_EMAIL"])
+          )
         shell: julia --color=yes {0}
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          COMPATHELPER_PRIV: ${{ secrets.DOCUMENTER_KEY }}
+          GIT_COMMITTER_USERNAME: ${{ inputs.git_username }}
+          GIT_COMMITTER_NAME: ${{ inputs.git_name }}
+          GIT_COMMITTER_EMAIL: ${{ inputs.git_email }}
