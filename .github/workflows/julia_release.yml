@@ -2,7 +2,7 @@ name: Julia Release Package
 on:
   workflow_call:
     secrets:
-      RELEASE_TOKEN:
+      SERVICE_TOKEN:
         description: "Token to use for Project.toml update push"
         required: false
 jobs:
@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: julia-actions/RegisterAction@latest
         with:
-          token: ${{ secrets.RELEASE_TOKEN }}
+          token: ${{ secrets.SERVICE_TOKEN }}

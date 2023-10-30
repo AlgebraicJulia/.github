@@ -2,26 +2,18 @@ name: Julia CompatHelper
 on:
   workflow_call:
     secrets:
-      RELEASE_TOKEN:
+      SERVICE_TOKEN:
         description: "Token to use for creating CompatHelper PRs"
         required: false
-    inputs:
-      git_username:
-        description: "Username of github user"
-        default: "algebraicjuliabot"
+      SERVICE_USER:
+        description: "Username of service account to make commits"
         required: false
-        type: string
-      git_name:
-        description: "Name of github user"
-        default: "AlgebraicJulia Bot"
+      SERVICE_NAME:
+        description: "Name of service account to make commits"
         required: false
-        type: string
-      git_email:
-        description: "Email of github user"
-        # TODO: Replace email with an official one like bot@algebraicjulia.org, but needs to be added to user account first
-        default: "mhalter3378@gmail.com"
+      SERVICE_EMAIL:
+        description: "Email of service account to make commits"
         required: false
-        type: string
 jobs:
   CompatHelper:
     runs-on: ubuntu-latest
@@ -55,11 +47,13 @@ jobs:
           import CompatHelper
           CompatHelper.main(
             ENV,
-            CompatHelper.GitHubActions(username=ENV["GIT_COMMITTER_USERNAME"], email=ENV["GIT_COMMITTER_EMAIL"])
+            haskey(ENV, "GIT_COMMITTER_USER") && haskey(ENV, "GIT_COMMITTER_EMAIL") ?
+            CompatHelper.GitHubActions(username=ENV["GIT_COMMITTER_USER"], email=ENV["GIT_COMMITTER_EMAIL"])
+            : CompatHelper.auto_detect_ci_service()
           )
         shell: julia --color=yes {0}
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          GIT_COMMITTER_USERNAME: ${{ inputs.git_username }}
-          GIT_COMMITTER_NAME: ${{ inputs.git_name }}
-          GIT_COMMITTER_EMAIL: ${{ inputs.git_email }}
+          GITHUB_TOKEN: ${{ secrets.SERVICE_TOKEN }}
+          GIT_COMMITTER_USER: ${{ secrets.SERVICE_USER}}
+          GIT_COMMITTER_NAME: ${{ secrets.SERVICE_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.SERVICE_EMAIL }}
