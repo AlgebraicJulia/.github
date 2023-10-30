@@ -7,10 +7,10 @@ on:
         required: false
     inputs:
       version:
-       description: "Main Julia version to run on"
-       default: "1"
-       required: false
-       type: string
+        description: "Main Julia version to run on"
+        default: "1"
+        required: false
+        type: string
       test_versions:
         description: "What versions of julia to test, a JSON array of strings"
         default: "['1']"
