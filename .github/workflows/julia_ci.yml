@@ -49,6 +49,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Install Graphviz"
         uses: ts-graphviz/setup-graphviz@v1
+        with:
+          ubuntu-skip-apt-update: "true"
+          macos-skip-brew-update: "true"
       - name: "Set up Julia"
         uses: julia-actions/setup-julia@v1
         with:
@@ -79,6 +82,9 @@ jobs:
           version: ${{ inputs.version }}
       - name: "Install Graphviz"
         uses: ts-graphviz/setup-graphviz@v1
+        with:
+          ubuntu-skip-apt-update: "true"
+          macos-skip-brew-update: "true"
       - name: "Install LaTeX"
         run: |
           sudo apt-get update
