@@ -25,7 +25,7 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Intall LaTeX dependencies
         run: |
-          sudo apt-get install graphviz pdf2svg
+          sudo apt-get install graphviz pdf2svg dvisvgm
           quarto install tinytex --update-path
           tlmgr update --self
           tlmgr install tikz-cd luatex85
