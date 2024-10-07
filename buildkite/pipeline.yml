@@ -1,0 +1,15 @@
+steps:
+  - label: ":hammer: Precompile Documentation"
+    commands:
+      - "module load julia"
+      - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.update(); Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate(); Pkg.precompile()'"
+
+  - wait
+
+  - label: ":scroll: Build docs and run tests"
+    env:
+      JULIA_PROJECT: "docs/"
+    commands:
+      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --output=.buildkite/log_%j.log --unbuffered jobscript.sh"
+
+  - wait
