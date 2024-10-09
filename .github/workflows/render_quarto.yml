@@ -37,6 +37,8 @@ jobs:
         run: |
           python3 -m pip install jupyter
           julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate();'
+      - name: Cache Julia Installation
+        uses: julia-actions/cache@v2
       - name: Remove frozen posts
         if: ${{ inputs.build_all }}
         run: |
