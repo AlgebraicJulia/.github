@@ -47,15 +47,13 @@ jobs:
       # TODO: IF RENDER FAILS, OPEN NEW ISSUE OF BROKEN POSTS
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         if: ${{ inputs.save_build }}
         with:
           name: _site
           path: _site
-          include-hidden-files: true
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         if: ${{ inputs.save_build }}
         with:
           name: _freeze
           path: _freeze
-          include-hidden-files: true
