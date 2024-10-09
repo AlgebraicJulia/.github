@@ -25,10 +25,10 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
       - name: Intall LaTeX dependencies
         run: |
-          sudo apt-get install graphviz pdf2svg dvisvgm
+          sudo apt-get install graphviz
           quarto install tinytex --update-path
           tlmgr update --self
-          tlmgr install tikz-cd luatex85
+          tlmgr install tikz-cd luatex85 dvisvgm
       - name: Install Julia
         uses: julia-actions/setup-julia@v2
         with:
