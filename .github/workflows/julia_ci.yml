@@ -48,12 +48,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Install Graphviz"
-        uses: ts-graphviz/setup-graphviz@v1
+        uses: ts-graphviz/setup-graphviz@v2
         with:
           ubuntu-skip-apt-update: "true"
           macos-skip-brew-update: "true"
       - name: "Set up Julia"
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
@@ -77,11 +77,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Set up Julia"
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v2
         with:
           version: ${{ inputs.version }}
       - name: "Install Graphviz"
-        uses: ts-graphviz/setup-graphviz@v1
+        uses: ts-graphviz/setup-graphviz@v2
         with:
           ubuntu-skip-apt-update: "true"
           macos-skip-brew-update: "true"

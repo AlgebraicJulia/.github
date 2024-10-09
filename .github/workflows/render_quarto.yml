@@ -30,7 +30,7 @@ jobs:
           tlmgr update --self
           tlmgr install tikz-cd luatex85
       - name: Install Julia
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v2
         with:
           version: "1.10"
       - name: Setup up Julia Project
@@ -44,12 +44,12 @@ jobs:
       # TODO: IF RENDER FAILS, OPEN NEW ISSUE OF BROKEN POSTS
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ inputs.save_build }}
         with:
           name: _site
           path: _site
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ inputs.save_build }}
         with:
           name: _freeze
