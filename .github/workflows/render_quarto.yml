@@ -29,16 +29,17 @@ jobs:
           quarto install tinytex --update-path
           tlmgr update --self
           tlmgr install tikz-cd luatex85 dvisvgm
+          echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
       - name: Install Julia
         uses: julia-actions/setup-julia@v2
         with:
           version: "1.10"
+      - name: Cache Julia Installation
+        uses: julia-actions/cache@v2
       - name: Setup up Julia Project
         run: |
           python3 -m pip install jupyter
           julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate();'
-      - name: Cache Julia Installation
-        uses: julia-actions/cache@v2
       - name: Remove frozen posts
         if: ${{ inputs.build_all }}
         run: |
@@ -51,8 +52,10 @@ jobs:
         with:
           name: _site
           path: _site
+          include-hidden-files: true
       - uses: actions/upload-artifact@v4
         if: ${{ inputs.save_build }}
         with:
           name: _freeze
           path: _freeze
+          include-hidden-files: true
