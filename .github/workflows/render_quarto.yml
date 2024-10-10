@@ -40,6 +40,7 @@ jobs:
         run: |
           python3 -m pip install jupyter
           julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate();'
+          julia -e 'using Pkg; Pkg.activate("."); try Pkg.build("IJulia") catch end;'
       - name: Remove frozen posts
         if: ${{ inputs.build_all }}
         run: |
