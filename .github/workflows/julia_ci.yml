@@ -13,7 +13,7 @@ on:
         type: string
       test_versions:
         description: "What versions of julia to test, a JSON array of strings"
-        default: "['1']"
+        default: "['1.10', '1']" # 1.10.5 is LTS
         required: false
         type: string
       codecov:
