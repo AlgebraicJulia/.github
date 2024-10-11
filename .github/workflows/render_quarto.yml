@@ -38,9 +38,11 @@ jobs:
         uses: julia-actions/cache@v2
       - name: Setup up Julia Project
         run: |
-          python3 -m pip install jupyter
-          julia -e 'using Pkg; Pkg.activate("."); Pkg.instantiate();'
-          julia -e 'using Pkg; Pkg.activate("."); try Pkg.build("IJulia") catch end;'
+          find . -name 'Project.toml' -o -name 'JuliaProject.toml' | while read toml_file; do
+            DIRNAME=$(dirname "$toml_file")
+            echo "Instantiating julia project in $DIRNAME"
+            julia --project="$DIRNAME" -e 'using Pkg; Pkg.instantiate();'
+          done
       - name: Remove frozen posts
         if: ${{ inputs.build_all }}
         run: |
