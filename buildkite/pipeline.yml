@@ -1,15 +1,32 @@
-steps:
-  - label: ":hammer: Precompile Documentation"
     commands:
-      - "module load julia"
+      - "module load julia/{{matrix.version}}"
       - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.update(); Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate(); Pkg.precompile()'"
+    matrix:
+      setup:
+        version:
+          - "$JULIA_LTS"
+          - "$JULIA_LATEST"
 
   - wait
 
-  - label: ":scroll: Build docs and run tests"
+  - label: ":scroll: Run tests"
+    env:
+      JULIA_VERSION: {{matrix.version}}
+    commands:
+      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --output=.buildkite/log_%j.log --unbuffered .buildkite/jobscript.sh"
+    matrix:
+      setup:
+        version:
+          - "$JULIA_LTS"
+          - "$JULIA_LATEST"
+
+  - wait
+
+  - label: ":scroll: Build docs"
+    commands:
+      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --output=.buildkite/log_docs_&j.log --unbuffered .buildkite/docs_build.sh"
     env:
       JULIA_PROJECT: "docs/"
-    commands:
-      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --output=.buildkite/log_%j.log --unbuffered jobscript.sh"
+      JULIA_VERSION: "$JULIA_LATEST"
 
   - wait
