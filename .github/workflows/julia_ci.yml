@@ -13,7 +13,7 @@ on:
         type: string
       test_versions:
         description: "What versions of julia to test, a JSON array of strings"
-        default: "['1']"
+        default: "['1.10', '1']" # 1.10.5 is LTS
         required: false
         type: string
       codecov:
@@ -48,16 +48,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Install Graphviz"
-        uses: ts-graphviz/setup-graphviz@v1
+        uses: ts-graphviz/setup-graphviz@v2
         with:
           ubuntu-skip-apt-update: "true"
           macos-skip-brew-update: "true"
       - name: "Set up Julia"
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v2
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - uses: julia-actions/cache@v1
+      - uses: julia-actions/cache@v2
       - uses: julia-actions/julia-buildpkg@v1
       - name: "Run tests"
         uses: julia-actions/julia-runtest@v1
@@ -77,11 +77,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Set up Julia"
-        uses: julia-actions/setup-julia@v1
+        uses: julia-actions/setup-julia@v2
         with:
           version: ${{ inputs.version }}
       - name: "Install Graphviz"
-        uses: ts-graphviz/setup-graphviz@v1
+        uses: ts-graphviz/setup-graphviz@v2
         with:
           ubuntu-skip-apt-update: "true"
           macos-skip-brew-update: "true"
