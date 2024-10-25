@@ -2,7 +2,7 @@ steps:
   - label: ":hammer: Precompiling Julia {{matrix.version}}"
     commands:
       - "module load julia/{{matrix.version}}"
-      - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.update(); Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate(); Pkg.precompile()'"
+      - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate(); Pkg.update(); Pkg.precompile()'"
     matrix:
       setup:
         version:
