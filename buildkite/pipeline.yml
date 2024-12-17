@@ -1,5 +1,6 @@
 steps:
 
+
   - label: ":scroll: Run tests for Julia v{{matrix.version}}"
     env:
       JULIA_VERSION: "{{matrix.version}}"
@@ -16,8 +17,6 @@ steps:
   - wait
 
   - label: ":scroll: Build docs for Julia v{{matrix.version}}"
-    commands:
-      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --unbuffered .buildkite/build_docs.sh {{matrix.version}}"
     env:
       JULIA_PROJECT: "docs/"
       JULIA_VERSION: "{{matrix.version}}"
