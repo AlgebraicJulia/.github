@@ -1,18 +1,4 @@
 steps:
-  - label: ":hammer: Precompiling Julia v{{matrix.version}}"
-    env:
-      JULIA_DEPOT: "$DEPOT/{{matrix.version}}"
-    commands:
-      - "echo 'Precompiling with Depot located at $DEPOT/{{matrix.version}}'"
-      - "module load julia/{{matrix.version}}"
-      - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate(); Pkg.update(); Pkg.precompile()'"
-    matrix:
-      setup:
-        version:
-          - "$JULIA_LTS"
-          - "$JULIA_LATEST"
-
-  - wait
 
   - label: ":scroll: Run tests for Julia v{{matrix.version}}"
     env:
