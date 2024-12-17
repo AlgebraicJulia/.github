@@ -1,23 +1,12 @@
 steps:
-  - label: ":hammer: Precompiling Julia {{matrix.version}}"
-    env:
-      JULIA_DEPOT: "$DEPOT"
-    commands:
-      - "module load julia/{{matrix.version}}"
-      - "julia --project=docs/ --color=yes -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.update(); Pkg.instantiate(); Pkg.precompile()'"
-    matrix:
-      setup:
-        version:
-          - "$JULIA_LTS"
-          - "$JULIA_LATEST"
 
-  - wait
 
-  - label: ":scroll: Run tests"
+  - label: ":scroll: Run tests for Julia v{{matrix.version}}"
     env:
       JULIA_VERSION: "{{matrix.version}}"
-      JULIA_DEPOT: "$DEPOT"
+      JULIA_DEPOT: "$DEPOT/{{matrix.version}}"
     commands:
+      - "echo 'Running tests with Depot located at $DEPOT/{{matrix.version}}'"
       - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --unbuffered .buildkite/run_tests.sh {{matrix.version}}"
     matrix:
       setup:
@@ -27,14 +16,13 @@ steps:
 
   - wait
 
-  - label: ":scroll: Build docs"
-    commands:
-      - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --unbuffered .buildkite/build_docs.sh {{matrix.version}}"
+  - label: ":scroll: Build docs for Julia v{{matrix.version}}"
     env:
       JULIA_PROJECT: "docs/"
-      JULIA_VERSION: "$JULIA_LATEST"
-      JULIA_DEPOT: "$DEPOT"
+      JULIA_VERSION: "{{matrix.version}}"
+      JULIA_DEPOT: "$DEPOT/{{matrix.version}}"
     commands:
+      - "echo 'Building docs with Depot located at $DEPOT/{{matrix.version}}'"
       - "srun --cpus-per-task=16 --mem=64G --time=1:00:00 --unbuffered .buildkite/build_docs.sh {{matrix.version}}"
     matrix:
       setup:
