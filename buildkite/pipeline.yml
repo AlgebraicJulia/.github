@@ -5,7 +5,7 @@ steps:
       JULIA_VERSION: "{{matrix.version}}"
       JULIA_DEPOT: "$DEPOT/{{matrix.version}}"
     commands:
-      - "echo 'Running tests with Depot located at $JULIA_DEPOT/{{matrix.version}}'"
+      - "echo 'Running tests with Depot located at $JULIA_DEPOT'"
       - "srun --cpus-per-task=16 --mem=64G --time=2:00:00 --unbuffered .buildkite/run_tests.sh {{matrix.version}}"
     matrix:
       setup:
@@ -19,7 +19,7 @@ steps:
       JULIA_VERSION: "{{matrix.version}}"
       JULIA_DEPOT: "$DEPOT/{{matrix.version}}"
     commands:
-      - "echo 'Building docs with Depot located at $JULIA_DEPOT/{{matrix.version}}'"
+      - "echo 'Building docs with Depot located at $JULIA_DEPOT'"
       - "srun --cpus-per-task=16 --mem=64G --time=2:00:00 --unbuffered .buildkite/build_docs.sh {{matrix.version}}"
     matrix:
       setup:
