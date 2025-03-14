@@ -24,6 +24,6 @@ steps:
     matrix:
       setup:
         version:
-          - "$JULIA_LTS"
+          - "$JULIA_LATEST"
 
   - wait
