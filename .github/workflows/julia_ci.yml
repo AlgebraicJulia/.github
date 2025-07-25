@@ -16,6 +16,11 @@ on:
         default: "['1.10', '1']" # 1.10.5 is LTS
         required: false
         type: string
+      exclude_versions:
+        description: "Optionally exclude julia versions"
+        required: false
+        default: '[]'
+        type: string
       codecov:
         description: "Whether or not to include codecov"
         default: true
@@ -34,6 +39,7 @@ jobs:
       fail-fast: false
       matrix: # use matrix notation for linux for easily testing more versions/architectures
         version: ${{ fromJSON(inputs.test_versions) }}
+        exclude: ${{ fromJSON(inputs.exclude_versions) }}
         os: [ubuntu-latest]
         arch: ["x64"]
         include:
